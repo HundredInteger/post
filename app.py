@@ -25,15 +25,13 @@ def write_review():
 
     db.bookreview.insert_one(doc)
 
-
     return jsonify({'msg': '저장 완료!'})
 
 
 @app.route('/review', methods=['GET'])
 def read_reviews():
-    sample_receive = request.args.get('sample_give')
-    print(sample_receive)
-    return jsonify({'msg': '이 요청은 GET!'})
+    reviews = list(db.bookreview.find({}, {'_id': False}))
+    return jsonify({'all_reviews': reviews})
 
 
 if __name__ == '__main__':
